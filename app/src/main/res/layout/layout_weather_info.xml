@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+		<variable
+			name="weatherItem"
+			type="com.skyline.rxjavademo.meta.WeatherItem"/>
+	</data>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:layout_marginBottom="10dp"
+			android:orientation="horizontal">
+
+			<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:orientation="vertical">
+
+				<com.skyline.rxjavademo.ui.widget.RemoteImageView
+					android:layout_width="64dp"
+					android:layout_height="64dp"
+					android:scaleType="fitXY"
+					app:url="@{weatherItem.weatherDay.imgUrl}"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@{weatherItem.weatherDay.value}"/>
+
+			</LinearLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="转"/>
+
+			<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:orientation="vertical">
+
+				<com.skyline.rxjavademo.ui.widget.RemoteImageView
+					android:layout_width="64dp"
+					android:layout_height="64dp"
+					android:scaleType="fitXY"
+					app:url="@{weatherItem.weatherNight.imgUrl}"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@{weatherItem.weatherNight.value}"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_width="80dp"
+				android:layout_height="wrap_content"
+				android:text= "温度:"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@{weatherItem.temp}"/>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+</layout>

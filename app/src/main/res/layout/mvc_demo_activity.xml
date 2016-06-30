@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+		<variable
+			name="weatherData"
+			type="com.skyline.rxjavademo.meta.WeatherData"/>
+	</data>
+
+	<LinearLayout
+
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="top"
+		android:orientation="vertical"
+		android:paddingBottom="@dimen/activity_vertical_margin"
+		android:paddingTop="@dimen/activity_vertical_margin">
+
+
+		<SearchView
+			android:id="@+id/search_view"
+			android:queryHint="@string/query_hint"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_marginTop="16dp"
+			android:layout_weight="1">
+
+			<LinearLayout
+				android:id="@+id/ll_content"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:paddingLeft="@dimen/activity_horizontal_margin"
+				android:paddingRight="@dimen/activity_horizontal_margin"
+				android:visibility="gone">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp">
+
+					<TextView
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"
+						android:text="城市:"/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@{weatherData.city.areaCnName}"/>
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp">
+
+					<TextView
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"
+						android:text="农历:"/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@{weatherData.lunar}"/>
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp">
+
+					<TextView
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"
+						android:text="PM2.5:"/>
+
+					<TextView
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"
+						android:text="@{weatherData.aqi.pm}"/>
+
+					<TextView
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"
+						android:text="AQI:"/>
+
+					<TextView
+						android:layout_width="80dp"
+						android:layout_height="wrap_content"
+						android:text="@{weatherData.aqi.aqi}"/>
+				</LinearLayout>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					android:text="今天:"/>
+
+				<include
+					layout="@layout/layout_weather_info"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					bind:weatherItem="@{weatherData.info[0]}"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					android:text="明天:"/>
+
+				<include
+					layout="@layout/layout_weather_info"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					bind:weatherItem="@{weatherData.info[1]}"/>
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					android:text="后天:"/>
+
+				<include
+					layout="@layout/layout_weather_info"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					bind:weatherItem="@{weatherData.info[2]}"/>
+
+			</LinearLayout>
+
+		</ScrollView>
+
+	</LinearLayout>
+</layout>

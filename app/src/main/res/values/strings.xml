@@ -1,0 +1,4 @@
+<resources>
+	<string name="app_name">RxJavaDemo</string>
+	<string name="query_hint">请输入查询城市</string>
+</resources>

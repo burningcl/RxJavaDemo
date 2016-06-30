@@ -14,6 +14,7 @@ import com.skyline.rxjavademo.databinding.MvcDemoActivityBinding;
 import com.skyline.rxjavademo.meta.WeatherData;
 
 /**
+ * MVP下Activity没有对页面操作的逻辑
  * Created by jairus on 16/6/28.
  */
 public class MvpDemoActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, MvpDemoView {

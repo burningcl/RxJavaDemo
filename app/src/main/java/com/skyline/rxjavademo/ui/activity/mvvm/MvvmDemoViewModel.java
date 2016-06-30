@@ -15,6 +15,9 @@ public class MvvmDemoViewModel {
 
 	protected MvvmDemoModel demoModel;
 
+	/**
+	 * 双向绑定的关键
+	 */
 	public ObservableField<DemoResult> demoResult;
 
 	public MvvmDemoViewModel() {

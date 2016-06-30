@@ -10,6 +10,7 @@ import com.skyline.rxjavademo.meta.CacheMeta;
 import com.skyline.rxjavademo.util.AsyncTaskUtil;
 
 /**
+ * 同步的数据库cache
  * Created by jairus on 16/6/29.
  */
 public class DbCache {

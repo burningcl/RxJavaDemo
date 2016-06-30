@@ -5,6 +5,7 @@ import com.skyline.rxjavademo.common.DemoResult;
 import com.skyline.rxjavademo.util.EventBusHolder;
 
 /**
+ * 负责页面的操作，是Model与View之间的桥梁
  * Created by jairus on 16/6/28.
  */
 public class MvpDemoPresenter {

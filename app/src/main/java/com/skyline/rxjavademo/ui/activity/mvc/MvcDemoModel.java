@@ -17,6 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * Model负责数据操作的逻辑
  * Created by jairus on 16/6/28.
  */
 public class MvcDemoModel {
@@ -27,6 +28,10 @@ public class MvcDemoModel {
 		return "weather_" + location;
 	}
 
+	/**
+	 * 获取数据
+	 * @param location
+	 */
 	public void fetchData(final String location) {
 		if (StringUtils.isEmpty(location)) {
 			return;
@@ -50,6 +55,11 @@ public class MvcDemoModel {
 		}, WeatherData.class);
 	}
 
+	/**
+	 * 从网络上获取数据
+	 * @param cacheKey
+	 * @param location
+	 */
 	protected void fetchDataFromInternet(final String cacheKey, final String location) {
 		Call<RequestResponse<WeatherData>> call = ApiClient.getWeatherData(location);
 		call.enqueue(new Callback<RequestResponse<WeatherData>>() {

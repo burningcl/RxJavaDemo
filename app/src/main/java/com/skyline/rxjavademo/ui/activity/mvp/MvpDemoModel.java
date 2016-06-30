@@ -17,6 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * 与MVC架构下的Model功能是一致的
  * Created by jairus on 16/6/28.
  */
 public class MvpDemoModel {

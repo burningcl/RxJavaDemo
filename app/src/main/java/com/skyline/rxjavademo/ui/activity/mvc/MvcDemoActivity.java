@@ -15,6 +15,8 @@ import com.skyline.rxjavademo.databinding.MvcDemoActivityBinding;
 import com.skyline.rxjavademo.util.EventBusHolder;
 
 /**
+ * Activity即Controller
+ * 负责对页面操作的逻辑
  * Created by jairus on 16/6/28.
  */
 public class MvcDemoActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {

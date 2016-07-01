@@ -43,7 +43,7 @@
 				android:orientation="vertical"
 				android:paddingLeft="@dimen/activity_horizontal_margin"
 				android:paddingRight="@dimen/activity_horizontal_margin"
-				android:visibility="@{demoViewModel.demoResult == null ? View.GONE: View.VISIBLE}">
+				android:visibility="@{demoViewModel.contentVisibility}">
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -58,7 +58,7 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="@{demoViewModel.demoResult.data.city.areaCnName}"/>
+						android:text="@{demoViewModel.weatherData.city.areaCnName}"/>
 				</LinearLayout>
 
 				<LinearLayout
@@ -74,7 +74,7 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="@{demoViewModel.demoResult.data.lunar}"/>
+						android:text="@{demoViewModel.weatherData.lunar}"/>
 				</LinearLayout>
 
 				<LinearLayout
@@ -90,7 +90,7 @@
 					<TextView
 						android:layout_width="80dp"
 						android:layout_height="wrap_content"
-						android:text="@{demoViewModel.demoResult.data.aqi.pm}"/>
+						android:text="@{demoViewModel.weatherData.aqi.pm}"/>
 
 					<TextView
 						android:layout_width="80dp"
@@ -100,7 +100,7 @@
 					<TextView
 						android:layout_width="80dp"
 						android:layout_height="wrap_content"
-						android:text="@{demoViewModel.demoResult.data.aqi.aqi}"/>
+						android:text="@{demoViewModel.weatherData.aqi.aqi}"/>
 				</LinearLayout>
 
 				<TextView
@@ -114,7 +114,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="10dp"
-					bind:weatherItem="@{demoViewModel.demoResult.data.info[0]}"/>
+					bind:weatherItem="@{demoViewModel.weatherData.info[0]}"/>
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="10dp"
-					bind:weatherItem="@{demoViewModel.demoResult.data.info[1]}"/>
+					bind:weatherItem="@{demoViewModel.weatherData.info[1]}"/>
 
 				<TextView
 					android:layout_width="wrap_content"
@@ -140,7 +140,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="10dp"
-					bind:weatherItem="@{demoViewModel.demoResult.data.info[2]}"/>
+					bind:weatherItem="@{demoViewModel.weatherData.info[2]}"/>
 
 			</LinearLayout>
 

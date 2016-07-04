@@ -1,6 +1,8 @@
 package com.skyline.rxjavademo.ui.activity.mvp;
 
 
+import android.util.Log;
+
 import com.skyline.rxjavademo.common.DemoResult;
 import com.skyline.rxjavademo.util.EventBusHolder;
 
@@ -14,28 +16,39 @@ public class MvpDemoPresenter {
 
 	private MvpDemoView demoView;
 
-	MvpDemoModel demoModel;
+	private MvpDemoModel demoModel;
+
+	private String location;
 
 	public MvpDemoPresenter(MvpDemoView demoView) {
+		Log.d(LOG_TAG, "constructor, demoView: " + demoView);
 		this.demoView = demoView;
-		this.demoModel= new MvpDemoModel();
+		this.demoModel = new MvpDemoModel();
 		EventBusHolder.EVENT_BUS.register(this);
+		Log.d(LOG_TAG, "constructor");
 	}
 
 	public void fetchData(final String location) {
+		Log.d(LOG_TAG, "fetchData, location: " + location);
+		this.location = location;
 		demoModel.fetchData(location);
 	}
 
 	public void onEventMainThread(DemoResult result) {
+		if (result == null || result.query == null || location == null || !result.query.equals(location)) {
+			return;
+		}
+		Log.d(LOG_TAG, "onEventMainThread, result: " + result);
 		if (result != null && result.status.equals(DemoResult.Status.SUCCESS)) {
 			demoView.renderWeather(result.data);
 			demoView.setContentVisible(true);
-		}else{
+		} else {
 			demoView.setContentVisible(false);
 		}
 	}
 
-	public void onViewDestroy(){
+	public void onViewDestroy() {
+		Log.d(LOG_TAG, "onViewDestroy");
 		EventBusHolder.EVENT_BUS.unregister(this);
 	}
 

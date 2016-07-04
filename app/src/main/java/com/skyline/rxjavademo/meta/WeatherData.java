@@ -1,5 +1,7 @@
 package com.skyline.rxjavademo.meta;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 /**
@@ -23,5 +25,10 @@ public class WeatherData {
 	public String extUrl;
 
 	public Aqi aqi;
+
+	@Override
+	public String toString() {
+		return new Gson().toJson(this);
+	}
 
 }

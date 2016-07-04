@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
 
@@ -21,9 +22,13 @@ import com.skyline.rxjavademo.util.EventBusHolder;
  */
 public class MvcDemoActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
+	private static final String LOG_TAG = MvcDemoActivity.class.getSimpleName();
+
 	private MvcDemoActivityBinding dataBinding;
 
 	private MvcDemoModel demoModel;
+
+	private String location;
 
 	@Override
 	protected void onCreate(@ColorInt Bundle savedInstanceState) {
@@ -35,6 +40,10 @@ public class MvcDemoActivity extends AppCompatActivity implements SearchView.OnQ
 	}
 
 	public void onEventMainThread(DemoResult result) {
+		if (result == null || result.query == null || location == null || !result.query.equals(location)) {
+			return;
+		}
+		Log.d(LOG_TAG, "onEventMainThread, result: " + result);
 		if (result != null && result.status.equals(DemoResult.Status.SUCCESS)) {
 			dataBinding.setWeatherData(result.data);
 			dataBinding.llContent.setVisibility(View.VISIBLE);
@@ -56,6 +65,7 @@ public class MvcDemoActivity extends AppCompatActivity implements SearchView.OnQ
 
 	@Override
 	public boolean onQueryTextSubmit(String query) {
+		location = query;
 		dataBinding.searchView.clearFocus();
 		demoModel.fetchData(query);
 		return true;

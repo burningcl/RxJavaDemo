@@ -45,4 +45,10 @@ public class RxDemoActivity extends AppCompatActivity implements SearchView.OnQu
 		Intent intent = new Intent(context, RxDemoActivity.class);
 		context.startActivity(intent);
 	}
+
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		demoViewModel.onViewDestroy();
+	}
 }

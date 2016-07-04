@@ -1,7 +1,8 @@
-package com.skyline.rxjavademo;
+package com.skyline.rxjavademo.rx;
 
-import android.test.AndroidTestCase;
 import android.util.Log;
+
+import org.junit.Test;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func2;
 import rx.schedulers.Schedulers;
@@ -16,86 +18,90 @@ import rx.schedulers.Schedulers;
 /**
  * Created by jairus on 16/6/15.
  */
-public class BasicTest extends AndroidTestCase {
+public class BasicTest{
 
 	public static final String LOG_TAG = "BasicTest";
 
-//	public void testBasic() {
-//		Log.d(LOG_TAG, "testBasic");
-//
-//		Observable<String> myObservable = Observable.create(
-//				new Observable.OnSubscribe<String>() {
-//					@Override
-//					public void call(Subscriber<? super String> sub) {
-//						sub.onNext("Hello, world!");
-//						sub.onCompleted();
-//						throw new NullPointerException();
-//					}
-//				}
-//		);
-//
-//		Subscriber<String> mySubscriber = new Subscriber<String>() {
-//			@Override
-//			public void onNext(String s) {
-//				Log.d(LOG_TAG, "onNext, s: " + s);
-//			}
-//
-//			@Override
-//			public void onCompleted() {
-//				Log.d(LOG_TAG, "onCompleted");
-//			}
-//
-//			@Override
-//			public void onError(Throwable e) {
-//				Log.e(LOG_TAG, "onError", e);
-//			}
-//		};
-//
-//		myObservable.subscribe(mySubscriber);
-//	}
-//
-//	public void testJust() {
-//		Log.d(LOG_TAG, "testJust");
-//
-//		Observable<String> myObservable = Observable.just("Hello, world!");
-//
-//		Action1<String> onNextAction = new Action1<String>() {
-//			@Override
-//			public void call(String s) {
-//				Log.d(LOG_TAG, "call, s: " + s);
-//			}
-//		};
-//
-//		myObservable.subscribe(onNextAction);
-//	}
-//
-//	public void testOperators() {
-//		Log.d(LOG_TAG, "testOperators");
-//
-//		Observable<String> myObservable = Observable.just("Hello, world!")
-//				.map(new Func1<String, Integer>() {
-//					@Override
-//					public Integer call(String s) {
-//						return s.hashCode();
-//					}
-//				})
-//				.map(new Func1<Integer, String>() {
-//					@Override
-//					public String call(Integer integer) {
-//						return "integer: " + integer;
-//					}
-//				});
-//
-//		Action1<String> onNextAction = new Action1<String>() {
-//			@Override
-//			public void call(String s) {
-//				Log.d(LOG_TAG, "call, s: " + s);
-//			}
-//		};
-//
-//		myObservable.subscribe(onNextAction);
-//	}
+	@Test
+	public void testBasic() {
+		Log.d(LOG_TAG, "testBasic");
 
+		Observable<String> myObservable = Observable.create(
+				new Observable.OnSubscribe<String>() {
+					@Override
+					public void call(Subscriber<? super String> sub) {
+						sub.onNext("Hello, world!");
+						sub.onCompleted();
+						throw new NullPointerException();
+					}
+				}
+		);
+
+		Subscriber<String> mySubscriber = new Subscriber<String>() {
+			@Override
+			public void onNext(String s) {
+				Log.d(LOG_TAG, "onNext, s: " + s);
+			}
+
+			@Override
+			public void onCompleted() {
+				Log.d(LOG_TAG, "onCompleted");
+			}
+
+			@Override
+			public void onError(Throwable e) {
+				Log.e(LOG_TAG, "onError", e);
+			}
+		};
+
+		myObservable.subscribe(mySubscriber);
+	}
+
+	@Test
+	public void testJust() {
+		Log.d(LOG_TAG, "testJust");
+
+		Observable<String> myObservable = Observable.just("Hello, world!");
+
+		Action1<String> onNextAction = new Action1<String>() {
+			@Override
+			public void call(String s) {
+				Log.d(LOG_TAG, "call, s: " + s);
+			}
+		};
+
+		myObservable.subscribe(onNextAction);
+	}
+
+	@Test
+	public void testOperators() {
+		Log.d(LOG_TAG, "testOperators");
+
+		Observable<String> myObservable = Observable.just("Hello, world!")
+				.map(new Func1<String, Integer>() {
+					@Override
+					public Integer call(String s) {
+						return s.hashCode();
+					}
+				})
+				.map(new Func1<Integer, String>() {
+					@Override
+					public String call(Integer integer) {
+						return "integer: " + integer;
+					}
+				});
+
+		Action1<String> onNextAction = new Action1<String>() {
+			@Override
+			public void call(String s) {
+				Log.d(LOG_TAG, "call, s: " + s);
+			}
+		};
+
+		myObservable.subscribe(onNextAction);
+	}
+
+	@Test
 	public void testFilter() {
 		Log.d(LOG_TAG, "testFilter");
 		String[] strs = {"Hello, world!", "Hello, world! 1", "World", "Hello"};
@@ -168,6 +174,7 @@ public class BasicTest extends AndroidTestCase {
 		myObservable.subscribe(mySubscriber);
 	}
 
+	@Test
 	public void testSchedulers() {
 		Log.d(LOG_TAG, "testSchedulers");
 

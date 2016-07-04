@@ -12,8 +12,6 @@ import retrofit2.Call;
 import retrofit2.Response;
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by jairus on 16/6/28.
@@ -52,27 +50,7 @@ public class RxDemoModel {
 						}
 					}
 				}
-		)
-//				.map(new Func1<WeatherData, DemoResult>() {
-//			@Override
-//			public DemoResult call(WeatherData weatherData) {
-//				if (weatherData != null) {
-//					return new DemoResult(weatherData, DemoResult.Status.SUCCESS);
-//				}
-//				Call<RequestResponse<WeatherData>> call = ApiClient.getWeatherData(location);
-//				try {
-//					Response<RequestResponse<WeatherData>> resp = call.execute();
-//					if (resp.body() != null && resp.body().data != null) {
-//						return new DemoResult(resp.body().data, DemoResult.Status.SUCCESS);
-//					}
-//				} catch (IOException e) {
-//					Log.w(LOG_TAG, "fetchData, fail", e);
-//				}
-//				return new DemoResult(null, DemoResult.Status.FAIL);
-//			}
-//		})
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io());
+		);
 	}
 
 }

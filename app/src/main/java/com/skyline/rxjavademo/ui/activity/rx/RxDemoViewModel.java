@@ -9,6 +9,9 @@ import com.skyline.rxjavademo.meta.WeatherData;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by jairus on 16/6/28.
@@ -21,22 +24,28 @@ public class RxDemoViewModel {
 
 	public ObservableField<DemoResult> demoResult;
 
+	private Subscription subscription;
+
 	public RxDemoViewModel() {
 		this.demoModel = new RxDemoModel();
 		this.demoResult = new ObservableField();
+
 	}
 
-	public void fetchData(String query) {
-		Observable observable = demoModel.fetchData(query);
+	public void fetchData(final String query) {
+		Log.d(LOG_TAG, "fetchData, query: " + query);
+		Observable observable = demoModel.fetchData(query)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io());
 		Subscriber<WeatherData> subscriber = new Subscriber<WeatherData>() {
 			@Override
 			public void onNext(WeatherData weatherData) {
 				Log.d(LOG_TAG, "observeOn " + Thread.currentThread());
 				Log.d(LOG_TAG, "onNext, weatherData: " + weatherData);
 				if (weatherData != null)
-					demoResult.set(new DemoResult(weatherData, DemoResult.Status.SUCCESS));
+					demoResult.set(new DemoResult(query, weatherData, DemoResult.Status.SUCCESS));
 				else
-					demoResult.set(new DemoResult(weatherData, DemoResult.Status.FAIL));
+					demoResult.set(new DemoResult(query, weatherData, DemoResult.Status.FAIL));
 			}
 
 			@Override
@@ -48,10 +57,16 @@ public class RxDemoViewModel {
 			@Override
 			public void onError(Throwable e) {
 				Log.w(LOG_TAG, "onError", e);
-				demoResult.set(new DemoResult(null, DemoResult.Status.FAIL));
+				demoResult.set(new DemoResult(query, null, DemoResult.Status.FAIL));
 			}
 		};
-		observable.subscribe(subscriber);
+		subscription = observable.subscribe(subscriber);
+	}
+
+	public void onViewDestroy() {
+		if (!subscription.isUnsubscribed()) {
+			subscription.unsubscribe();
+		}
 	}
 
 }

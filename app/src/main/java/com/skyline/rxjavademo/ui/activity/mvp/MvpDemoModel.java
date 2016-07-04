@@ -33,7 +33,7 @@ public class MvpDemoModel {
 			return;
 		}
 
-		EventBusHolder.EVENT_BUS.post(new DemoResult(null, DemoResult.Status.LOADING));
+		EventBusHolder.EVENT_BUS.post(new DemoResult(location, null, DemoResult.Status.LOADING));
 
 		final String cacheKey = getCacheKey(location);
 
@@ -42,7 +42,7 @@ public class MvpDemoModel {
 			public void onAction(WeatherData data) {
 				if (data != null) {
 					Log.d(LOG_TAG, "fetchData, success, from db");
-					EventBusHolder.EVENT_BUS.post(new DemoResult(data, DemoResult.Status.SUCCESS));
+					EventBusHolder.EVENT_BUS.post(new DemoResult(location, data, DemoResult.Status.SUCCESS));
 					return;
 				}
 				fetchDataFromInternet(cacheKey, location);
@@ -58,18 +58,18 @@ public class MvpDemoModel {
 			public void onResponse(Call<RequestResponse<WeatherData>> call, Response<RequestResponse<WeatherData>> response) {
 				if (response.body() != null && response.body().data != null) {
 					Log.d(LOG_TAG, "fetchData, success, from internet");
-					EventBusHolder.EVENT_BUS.post(new DemoResult(response.body().data, DemoResult.Status.SUCCESS));
+					EventBusHolder.EVENT_BUS.post(new DemoResult(location, response.body().data, DemoResult.Status.SUCCESS));
 					AsyncDbCache.put(cacheKey, response.body().data);
 				} else {
 					Log.w(LOG_TAG, "fetchData, fail, response: " + response.body() + ", " + response.code() + ", " + response.errorBody());
-					EventBusHolder.EVENT_BUS.post(new DemoResult(null, DemoResult.Status.FAIL));
+					EventBusHolder.EVENT_BUS.post(new DemoResult(location, null, DemoResult.Status.FAIL));
 				}
 			}
 
 			@Override
 			public void onFailure(Call<RequestResponse<WeatherData>> call, Throwable t) {
 				Log.w(LOG_TAG, "fetchData, fail", t);
-				EventBusHolder.EVENT_BUS.post(new DemoResult(null, DemoResult.Status.FAIL));
+				EventBusHolder.EVENT_BUS.post(new DemoResult(location, null, DemoResult.Status.FAIL));
 			}
 		});
 	}
